@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sonar
+  namespace: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonar
+  template:
+    metadata:
+      name: sonar
+      labels: 
+        app: sonar
+    spec: 
+      containers:
+      - name: sonar
+        image: sonarqube:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9000
+          name: sonarport
+        env: 
+          - name: SONARQUBE_JDBC_USERNAME
+            value: sonar
+          - name: SONARQUBE_JDBC_PASSWORD
+            value: password
+          - name: SONARQUBE_JDBC_URL
+            value: jdbc:postgresql://postgresql-db:5432/sonar
+

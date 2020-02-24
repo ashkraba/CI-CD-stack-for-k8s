@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus
+  namespace: jenkins
+  labels:
+    app: nexus
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8081
+  selector:
+    app: nexus
+
